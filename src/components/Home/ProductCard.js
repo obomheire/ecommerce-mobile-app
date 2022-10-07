@@ -9,7 +9,7 @@ import {
   ToastAndroid,
 } from 'react-native';
 import React, {useState} from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector, useDispatch} from 'react-redux';
 import {useEffect} from 'react';
 import {
@@ -125,7 +125,7 @@ export default function ProductCard({product, navigation, wishlistData}) {
                   flexDirection: 'row',
                   alignItems: 'center',
                 }}>
-                <Icon name="star" color="#C68600" size={18} />
+                <Ionicons name="star" color="#C68600" size={18} />
                 <Text
                   style={{
                     color: '#333',
@@ -144,7 +144,7 @@ export default function ProductCard({product, navigation, wishlistData}) {
             }}>
             {click ? (
               <TouchableOpacity>
-                <Icon
+                <Ionicons
                   name="heart"
                   size={25}
                   style={{
@@ -156,7 +156,7 @@ export default function ProductCard({product, navigation, wishlistData}) {
               </TouchableOpacity>
             ) : (
               <TouchableOpacity>
-                <Icon
+                <Ionicons
                   name="heart-outline"
                   size={25}
                   style={{

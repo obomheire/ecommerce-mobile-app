@@ -49,7 +49,7 @@ export default function Banner() {
               );
             })}
           </Swiper>
-          <View style={{height: 20}}></View>
+          <View style={{height: 20}} />
         </View>
       </View>
     </ScrollView>

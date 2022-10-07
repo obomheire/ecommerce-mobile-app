@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native';
 import React, {useRef} from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 import {useState} from 'react';
 
@@ -45,7 +45,7 @@ const Header = ({navigation}) => {
       <View style={styles.headerMain}>
         <View style={styles.headerFlex}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <Icon name="menu-outline" size={40} color="#333" />
+            <Ionicons name="menu-outline" size={40} color="#333" />
           </TouchableOpacity>
           <TextInput
             placeholder="Search..."
@@ -55,7 +55,7 @@ const Header = ({navigation}) => {
             onChangeText={text => searchHandler(text)}
           />
           <TouchableOpacity>
-            <Icon
+            <Ionicons
               name="search-outline"
               size={30}
               color="#333"
@@ -100,7 +100,7 @@ const Header = ({navigation}) => {
                     }}>
                     {i.name}
                   </Text>
-                  <Icon
+                  <Ionicons
                     name="star"
                     color="#fff"
                     size={18}
