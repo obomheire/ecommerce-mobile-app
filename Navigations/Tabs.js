@@ -8,13 +8,31 @@ import React from 'react';
 import {View, Image, Text} from 'react-native';
 import {useSelector} from 'react-redux';
 import Loader from '../src/components/Layout/Loader';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ProductDetails from "../src/components/Products/ProductDetails";
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import ProductDetails from '../src/components/Products/ProductDetails';
+import {getCart, getWishList} from '../Redux/Actions/ProductAction';
+import {useDispatch} from 'react-redux';
+import {useEffect} from 'react';
+import OrderScreen from "../src/components/Order/OrderScreen";
+import UpdateAccount from "../src/components/Profile/UpdateAccount";
+
 const Tab = createBottomTabNavigator();
 
 export default function Tabs() {
   const {user, loading} = useSelector(state => state.user);
+  const {wishlistData, error} = useSelector(state => state.wishList);
+  const {cartData} = useSelector(state => state.cart);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (error) {
+      alert(error);
+    }
+    dispatch(getWishList());
+    dispatch(getCart());
+  }, [dispatch, error, wishlistData]);
+
   return (
     <>
       {loading ? (
@@ -27,8 +45,7 @@ export default function Tabs() {
               tabBarShowLabel: false,
               tabBarHideOnKeyboard: true,
             }}
-            initialRouteName="Home2"
-            >
+            initialRouteName="Home2">
             <Tab.Screen
               name="Home2"
               component={SimpleScreen}
@@ -90,7 +107,7 @@ export default function Tabs() {
               name="wishlist"
               component={WishListScreen}
               options={{
-                tabBarBadge: 1,
+                tabBarBadge: wishlistData?.length,
                 tabBarIcon: ({focused}) => (
                   <View
                     style={{
@@ -119,7 +136,7 @@ export default function Tabs() {
               name="cart"
               component={CartScreen}
               options={{
-                tabBarBadge: 2,
+                tabBarBadge: cartData?.length,
                 tabBarIcon: ({focused}) => (
                   <View
                     style={{
@@ -180,30 +197,38 @@ export default function Tabs() {
   );
 }
 
-
-const SimpleScreen = () =>{
+const SimpleScreen = () => {
   const Stack = createNativeStackNavigator();
- return(
-  <Stack.Navigator
-  screenOptions={{
-    headerShown:false
-  }}
-  initialRouteName="Home"
-  >
-    <Stack.Screen name='Home' component={HomeScreen} />
-    <Stack.Screen name='ProductDetails' component={ProductDetails} />
-  </Stack.Navigator>
- )
-}
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="Home">
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="ProductDetails" component={ProductDetails} />
+      <Stack.Screen name="OrderScreen" component={OrderScreen} />
+      <Stack.Screen name="UpdateProfile" component={UpdateAccount} />
+    </Stack.Navigator>
+  );
+};
 
-const Visibility = (route) => {
-
+const Visibility = route => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Feed';
 
-  if(routeName === "ProductDetails"){
-   return "none"
+  if (routeName === 'ProductDetails') {
+    return 'none';
   }
-  if(routeName === "Home"){
-   return "flex"
+
+  if (routeName === 'OrderScreen') {
+    return 'none';
   }
-}
+
+  if (routeName === 'UpdateProfile') {
+    return 'none';
+  }
+  
+  if (routeName === 'Home') {
+    return 'flex';
+  }
+};

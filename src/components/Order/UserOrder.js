@@ -1,26 +1,29 @@
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
-import Header from '../components/Layout/Header';
-import {useEffect} from 'react';
+import Header from '../Layout/Header';
 import {useDispatch, useSelector} from 'react-redux';
-import {getOrder} from '../../Redux/Actions/OrderAction';
+import {getUserOrders} from '../../../Redux/Actions/OrderAction';
+import {useEffect} from 'react';
 
 var {width} = Dimensions.get('window');
 
-export default function OrderScreen({navigation}) {
+export default function UserOrder({navigation}) {
   const {error, orders} = useSelector(state => state.orderData);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (error) {
-      ToastAndroid.showWithGravity(
-        error,
-        ToastAndroid.SHORT,
-        ToastAndroid.BOTTOM,
-      );
+      console.log(error);
     }
-    dispatch(getOrder());
+
+    dispatch(getUserOrders());
   }, [dispatch, error]);
 
   return (
@@ -35,6 +38,7 @@ const MyOrder = ({orders}) => {
   return (
     <View>
       {orders && orders.length > 0 ? (
+        orders &&
         orders.map((item, index) => (
           <>
             <View
@@ -59,10 +63,7 @@ const MyOrder = ({orders}) => {
               <View style={{alignItems: 'center'}}>
                 <Text style={{color: '#333'}}>Items Qty</Text>
                 <Text style={{color: '#333'}}>
-                  {item.orderItems.reduce(
-                    (total, item) => total + item.quantity,
-                    0,
-                  )}
+                  {item.orderItems.length === 0 ? 1 : item.orderItems.length}
                 </Text>
               </View>
               <View style={{alignItems: 'center'}}>
@@ -71,9 +72,9 @@ const MyOrder = ({orders}) => {
               </View>
               <View style={{alignItems: 'center'}}>
                 <Text style={{color: '#333'}}>Order Items</Text>
-                <Text style={{color: '#333'}}>
-                  {item.orderItems[0].productName}...
-                </Text>
+                  <Text style={{color: '#333'}}>
+                    {item.orderItems[0].name}...
+                  </Text>
               </View>
             </View>
             <View

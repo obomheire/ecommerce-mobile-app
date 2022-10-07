@@ -3,7 +3,7 @@ import React from 'react';
 var {width} = Dimensions.get('window');
 import ProductCard from '../Home/ProductCard';
 
-export default function HomeProduct({products,navigation}) {
+export default function HomeProduct({products, navigation,wishlistData}) {
   return (
     <View style={styles.container}>
       <Text
@@ -11,7 +11,8 @@ export default function HomeProduct({products,navigation}) {
           fontSize: 25,
           color: '#333',
           textAlign: 'center',
-        }}>
+        }}
+        >
         Best Selling
       </Text>
       <View style={styles.productCard}>
@@ -21,6 +22,7 @@ export default function HomeProduct({products,navigation}) {
               key={product._id}
               product={product}
               navigation={navigation}
+              wishlistData={wishlistData}
             />
           ))}
       </View>

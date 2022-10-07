@@ -5,36 +5,42 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
+  ToastAndroid,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 var {width} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Ionicons';
-import { userLogin } from '../../../Redux/Actions/UserAction';
-import { useDispatch, useSelector } from 'react-redux';
+import {userLogin} from '../../../Redux/Actions/UserAction';
+import {useDispatch, useSelector} from 'react-redux';
 
 export default function Login({navigation}) {
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
+  const {error, isAuthenticated} = useSelector(state => state.user);
 
-    const { error, isAuthenticated } = useSelector(
-        (state) => state.user
-      );
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const loginSubmit = (e) =>{
-      e.preventDefault();
+  const loginSubmit = e => {
+    e.preventDefault();
     dispatch(userLogin(email, password));
-  }
+  };
   useEffect(() => {
     if (error) {
-      alert(error);
+      ToastAndroid.showWithGravity(
+        error,
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+      );
     }
     if (isAuthenticated) {
-     alert("yeah login!")
+      ToastAndroid.showWithGravity(
+        'yeah login!',
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+      );
     }
-  }, [dispatch, error, alert, isAuthenticated]);
+  }, [dispatch, error, isAuthenticated]);
 
   return (
     <View style={styles.container}>
@@ -80,21 +86,18 @@ export default function Login({navigation}) {
             textContentType="password"
             secureTextEntry={true}
             value={password}
-            onChangeText={setPassword} 
-            />
+            onChangeText={setPassword}
+          />
           <Text
             style={{
               textAlign: 'right',
               color: '#333',
               fontSize: 15,
             }}
-            onPress={() => navigation.navigate("Forgot")}
-            >
+            onPress={() => navigation.navigate('Forgot')}>
             Forgot Password ?
           </Text>
-          <TouchableOpacity
-          onPress={loginSubmit}
-          >
+          <TouchableOpacity onPress={loginSubmit}>
             <View style={styles.Button}>
               <Text style={{color: '#fff', fontSize: 18}}>Login</Text>
             </View>
@@ -150,7 +153,7 @@ const styles = StyleSheet.create({
     borderColor: '#3BB77E',
     paddingLeft: 45,
     fontSize: 15,
-    color:"#333",
+    color: '#333',
     marginVertical: 10,
   },
   relative: {
