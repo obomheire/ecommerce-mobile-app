@@ -28,7 +28,7 @@ export default function ForgotPassword({navigation}) {
     if (message) {
       alert(message);
     }
-  }, [alert, error, message]);
+  }, [error, message]); //CHANGE
 
   return (
     <>

@@ -68,7 +68,7 @@ export default function Login({navigation}) {
         <View style={styles.relative}>
           <Icon name="mail-open-outline" size={25} style={styles.icon} />
           <TextInput
-            placeholder="Write your email..."
+            placeholder="Your email..."
             placeholderTextColor="#333"
             style={styles.inputBox}
             textContentType="emailAddress"
@@ -80,7 +80,7 @@ export default function Login({navigation}) {
         <View style={styles.relative}>
           <Icon name="lock-closed-outline" size={25} style={styles.icon} />
           <TextInput
-            placeholder="Write your password..."
+            placeholder="Your password..."
             placeholderTextColor="#333"
             style={styles.inputBox}
             textContentType="password"
@@ -116,7 +116,7 @@ export default function Login({navigation}) {
             color: '#333',
             fontSize: 15,
           }}>
-          Not have any account ?
+          Don't have account ?
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
           <Text
@@ -126,7 +126,7 @@ export default function Login({navigation}) {
               paddingRight: 15,
             }}>
             {' '}
-            Sign Up
+            Sign Up for free
           </Text>
         </TouchableOpacity>
       </View>

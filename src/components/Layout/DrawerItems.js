@@ -1,24 +1,24 @@
-import {Text, View, Image,TouchableOpacity} from 'react-native';
+import {Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useDispatch, useSelector } from 'react-redux';
-import { logOutUser } from '../../../Redux/Actions/UserAction';
+import {useDispatch, useSelector} from 'react-redux';
+import {logOutUser} from '../../../Redux/Actions/UserAction';
 
 export default function DrawerItems(props) {
   const dispatch = useDispatch();
-  const {user,error} = useSelector((state) =>state.user);
+  const {user, error} = useSelector(state => state.user);
 
-  const logOut = () =>{
+  const logOut = () => {
     dispatch(logOutUser());
-    if(error){
-      alert(error)
+    if (error) {
+      alert(error);
     }
-    alert("Log out success")
-  }
+    alert('Log out success');
+  };
 
   return (
     <View
@@ -29,7 +29,7 @@ export default function DrawerItems(props) {
       }}>
       <Image
         source={{
-          uri: user.avatar.url
+          uri: user.avatar.url,
         }}
         style={{
           width: 60,
@@ -50,20 +50,19 @@ export default function DrawerItems(props) {
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
-      <View >
-        <TouchableOpacity 
+      <View>
+        <TouchableOpacity
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            marginLeft:20,
-            marginBottom:20
+            marginLeft: 20,
+            marginBottom: 20,
           }}
-        onPress={logOut}
-        >
-        <Icon name="log-out-outline" size={30} color="#333" />
-        <Text style={{color: '#333', fontSize: 16, paddingLeft: 10}}>
-          Log Out
-        </Text>
+          onPress={logOut}>
+          <Icon name="log-out-outline" size={30} color="#333" />
+          <Text style={{color: '#333', fontSize: 16, paddingLeft: 10}}>
+            Log Out
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
