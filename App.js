@@ -10,7 +10,11 @@ import {Dimensions, LogBox, Text, View} from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import LottieView from 'lottie-react-native';
 
-LogBox.ignoreAllLogs();
+// LogBox.ignoreAllLogs();
+// LogBox.ignoreLogs([
+//   'ViewPropTypes will be removed',
+//   'ColorPropType will be removed',
+// ]);
 
 const height = Dimensions.get('window').height;
 const {width} = Dimensions.get('window');
